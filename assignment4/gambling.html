@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Free Gambling</title>
+    <meta charset="UTF-8"/>
+    <script src="solution.js"></script>
+    <script>
+      'use strict';
+      var gambler;
+      window.onload = () => {
+        gambler = new Gambler("https://pizza.cs.ualberta.ca/296/", "tpYCGn9+pPJuG4jN4n5VPm4K86THIpS/KzIYpViOfXY=");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Free Gambling</h1>
+    <form onsubmit="return false;"> <!-- prevent the form from GET or POSTing -->
+      <fieldset>
+        <p><label>Status: <output name="up">Loading...</output></label></p>
+        <p><label>Session: <output name="session">Loading...</output></label></p>
+      </fieldset>
+      <fieldset>
+        <p><label>Money: <output name="money">Loading...</output></label></p>
+        <p>
+          <label>Bet: <input name="bet" type="number" value="0"/></label>
+          <button type="button" name="betButton" onclick="window.gambler.bet(bet.value)">Place Bet</button>
+        </p>
+      </fieldset>
+      <fieldset>
+        <p><label>Dealer's Cards: <output name="dealer_hand"></output></label></p>
+        <p><label>Your Cards: <output name="player_hand"></output></label></p>
+        <p>
+          <button type="button" name="stand" onclick="window.gambler.stand()">Stand</button>
+          <button type="button" name="hit" onclick="window.gambler.hit()">Hit</button>
+          <button type="button" name="double_down" onclick="window.gambler.double_down()">Double Down</button>
+          <button type="button" name="surrender" onclick="window.gambler.surrender()">Surrender</button>
+        </p>
+        <p>
+          <label>Result: <output name="result"></output></label><br/>
+          <label>You bet: <output name="last_bet"></output></label><br/>
+          <label>You made: <output name="won"></output></label><br/>
+        </p>
+      </fieldset>
+    </form>
+    <h1>Rules</h1>
+    <p>The full rules may be found on 
+    <a href="https://en.wikipedia.org/wiki/Blackjack">Wikipedia</a> and elsewhere.
+    The variant of blackjack used here:
+      <ul>
+        <li>Does not allow splitting.</li>
+        <li>The dealer hits on Soft 17.</li>
+        <li>Allows only late surrender.</li>
+      </ul>
+    <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Gambling Assignment</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Joshua Charles Campbell</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </footer>
+  </body>
+</html>

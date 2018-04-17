@@ -1,0 +1,187 @@
+html {
+    overflow: auto;
+}
+body {
+    overflow: auto;
+    background-image: url("matrixBack.jpg");
+    background-size: cover;
+    text-shadow: -1px 0 black, 0 3px black, 1px 0 black, 0 -1px black;
+    margin: 2px;
+    /*
+    matrixBack Image Source:
+    https://www.vecteezy.com/vector-art/151563-random-numbers-matrix-background
+    */
+}
+p.title {
+    background-image: url("AWESOME_TITLE.png");
+    border-radius: 100px;
+    border-style: solid;
+    border-color: rgba(0,100,0,0.2);
+    margin: 0px 30px 0px 10px;
+    font-size: 40px;
+    color: aliceblue;
+    padding-bottom: 10px;
+    text-align: left;
+}
+.site-header nav {
+	overflow: hidden;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 600;
+    text-align: right;
+}
+.site-header a {
+	color: aliceblue;
+	text-align: center;
+	padding: 5px 3px 5px 3px;
+    margin: 0px 20px 0px 20px;
+}
+.site-header a:hover {
+    background-color: #ddd;
+	border-radius: 5px;
+	color: black;
+    text-shadow: none;
+    font-weight: 500;
+}
+section.about_s {
+    margin: 1px 345px 0px 10px;
+}
+section.work_s {
+    margin: 1px 345px 0px 10px;
+}
+section.offer_s {
+    margin: 1px 345px 0px 10px;
+}
+section.sidebar_s {
+    width: 316px;
+    right: 30px;
+    position: absolute;
+    top: 126px;
+}
+section.contact_s {
+    margin: 1px 345px 0px 10px;
+}
+#selfie {
+	width: 316px;
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+    transform: rotate(180deg);
+}
+.sidebar_p {
+    text-align: left;
+    color: aliceblue;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 26px;
+    margin: 0px 0px 0px 0px;
+    font-weight: 500;
+    line-height: 26px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-style: solid;
+    border-top-left-radius: 25px;
+    background-color: rgba(0,0,0,0.6);
+}
+.sidebar_ul {
+    margin: 0px 0px 5px 0px;
+    font-size: 20px;
+    line-height: 24px;
+    color: black;
+	border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-bottom-left-radius: 25px;
+    border-color: black;
+    padding-left: 0px;
+    padding-bottom: 5px;
+    background-image: url("goku_instinct.jpg");
+    background-size: cover;
+}
+.sidebar_ul li {
+    margin-left: 30px;
+}
+.inner_list {
+    padding-left: 0px;
+    margin-left: 22px;
+}
+.inner_list li {
+    margin-left: 0px;
+}
+h1 {
+    margin: 0px 0px 1px 5px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 26px;
+	font-weight: 500;
+    padding-left: 5px;
+    text-align: right;
+    transform: rotate(-10deg);
+	color: aliceblue;
+	background: black;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+    background-color: rgba(0,0,0,0.3);
+}
+h3 {
+    font: bold italic 3em/1em "Times New Roman", "MS Serif", "New York", serif;
+    background: #fff url("hexBack.jpg") repeat-x bottom;
+    padding: 0.1em 0 0px 0;
+    text-align: right;
+    margin: 0;
+    color: #e7ce00;
+}
+.about_p {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 35px;
+    margin: 10px 67px 5px 0px;
+	color: darkorange;
+	padding-left: 10px;
+    transform: rotate(10deg);
+}
+.about_p:nth-child(2) {
+    color: green;
+    transform: rotate(18deg);
+}
+.about_p:nth-child(3) {
+    color: green;
+    transform: rotate(15deg);
+}
+.about_p:nth-child(4) {
+    color: yellow;
+}
+.about_p::first-letter {
+    color: blueviolet;
+}
+.about_p::first-line {
+    color: beige;
+    background: rgb(123, 220, 42);
+}
+.about_p a{
+    color: deepskyblue;
+}
+.about_p.indent {
+    padding-left: 50px;
+}
+.site-footer section, h6 {
+    border-top: 0;
+    border-top-width: 0px;
+    border-top-style: initial;
+    border-top-color: initial;
+    color: rgba(0,0,0,0.5);
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 20px;
+    margin: 50px 0px 0px 0px;
+    padding-bottom: 10px;
+    text-align: center;
+    transform: rotate(180deg);
+}
+.sitefooter a {
+    color: rgba(0,0,0,0.4);
+}

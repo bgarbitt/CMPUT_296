@@ -1,0 +1,155 @@
+The goal of this assignment is to build a working JavaScript "glue layer" in
+between an existing webpage (gambling.html) and an HTTP server.
+
+The use of JavaScript libraries for this assignment is BANNED. Yes, that
+includes jQuery and lodash, etc.
+
+You should submit a single .js file named "solution.js".
+
+Marks:
+1. 1 point: 
+  Your code contains a class Gambler (function that can be run with
+   "new Gambler(url, token)"), and produces an object with the methods required
+   by the HTML page. These methods are:
+   * bet(amount)
+   * stand()
+   * hit()
+   * double_down()
+   * surrender()
+   * the constructor takes two arguments, the base url of the dealer and the
+     authentication token
+   Furthermore no console errors should be produced.
+   All of the buttons should be clickable, and not produce an error when
+   clicked, but they may do nothing.
+2. 1 point:
+  Requirement 1 is complete AND your Gambler object, when constructed, connects
+   to the "hello" page (the page is specified by the url argument to the 
+   constructor) and successfully prints the hello message from the server
+   to the console. There should be no console errors or warnings.
+   Hint: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+   You may also use XHR if you prefer.
+3. 1 point:
+    Requirement 1 and 2 are complete AND your Gambler object, when constructed,
+    posts the token to the /sit endpoint and obtains a new session. The token
+    must be POSTed and must use application/x-www-form-urlencoded with
+    token=blahblahblabhalbhablah. That is to say the key is "token" and the
+    value was passed to the constructor as the second argument.
+    Hint: https://developer.mozilla.org/en-US/docs/Web/API/FormData   
+    The server will reply in JSON.
+    Hint: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Body
+    Example server reply:
+          {
+              "last_game": {
+                  "bet": 10,
+                  "dealer_hand": [
+                      4
+                  ],
+                  "player_hand": [
+                      10,
+                      5,
+                      10
+                  ],
+                  "result": "bust",
+                  "won": -10
+              },
+              "money": 2000,
+              "session": "I9IpdZia-f2rKoJtI80-vA=="
+          }
+    The new session should be printed to the console, with no other console
+    warnings or errors.
+4. 1 point:
+    Requirements 1-3 are satisfied and the buttons work. The buttons will
+    call bet(amount), stand(), hit(), double_down(), surrender() on your
+    object after construction.
+    For bet, you must POST to url /<session>/bet (wherboth the token and the amount.
+    This is a URL that is composed of the url given to the constructor, 
+    followed by the session and finally "bet".
+    Example: https://pizza.cs.ualberta.ca/296/I9IpdZia-f2rKoJtI80-vA==/bet
+    For the amount the key will be "amount" and the value with be the amount.
+    For stand(), hit(), double_down(), surrender(), you must POST the token.
+    to url/session/action, where URL is the URL passed to your constructor,
+    session is the session token you recieved from the server after posting to
+    sit, and action is the name of the action you would like to perform.
+    Examples:
+    https://pizza.cs.ualberta.ca/296/I9IpdZia-f2rKoJtI80-vA==/stand
+    https://pizza.cs.ualberta.ca/296/I9IpdZia-f2rKoJtI80-vA==/hit
+    https://pizza.cs.ualberta.ca/296/I9IpdZia-f2rKoJtI80-vA==/double_down
+    https://pizza.cs.ualberta.ca/296/I9IpdZia-f2rKoJtI80-vA==/surrender
+    After each POST if valid the server will reply with the game state:
+      {
+        "game": {
+          "bet": 0,
+          "dealer_hand": [
+            1
+          ],
+          "player_hand": [
+            13,
+            1
+          ]
+        },
+        "money": 2000,
+        "session": "I9IpdZia-f2rKoJtI80-vA=="
+      }
+    The game should be playable using the buttons and the console. Output should
+    be done via the console to show your cards, whether you won/lost, how much
+    money you have, etc. and input should be done by clicking the buttons.
+    Remember: you MAY NOT change the code in the .html page.
+    There should be no console warnings or errors.
+5. 1 point: 
+    Requirements 1-4 are met and the output works on the HTML page. Instead of
+    just printing to the console, your code finds the correct output elements
+    on the page and displays the output to them. Hint: this is done by setting
+    their "value".
+    Hint: Check out the example on this page:
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output
+    https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+    The session should be displayed on the session output.
+    The server status should show the name of the HTTP response code given
+    to your code or an error. E.g. if the last GET/POST was OK, it should
+    display "OK", or if the last GET/POST resulted in a 409 it should display
+    "Conflict."
+    Hint: use response.statusText 
+    The last game result should be shown in the last game area.
+    There should be no console warnings or errors.
+6. 1 point: Requirements 1-4 are met and the buttons corresponding to invalid
+    actions are grayed out.
+    * You can't bet when there's a game in progress. 
+    * You can't change your bet when there's a game in progress.
+    * You can't stand/hit/double down/surrender when there is NO game
+      in progress.
+    * You can't surrender after hitting.
+    There should be no console warnings or errors.
+    Every action that is possible at a particular time is clickable.
+    Every action that is impossible at a particular time is not clickable.
+    The server will respond with a 400-series error (usually 409) for impossible
+    actions, but you must predict this response and prevent it by
+    disabling and enabling buttons and the bet input.
+7. 1 point: Requirements 1-6 are met and the application is fully usable.
+    * Card 1 should be shown as an Ace or "A". 
+      Card 11 should be shown as a Jack or "J".
+      Card 12 should be shown as a Queen or "Q".
+      Card 13 should be shown as a King or "K".
+    * Use localStorage to store the session in the browser so that even
+      when the page is refreshed, or the browser is restarted, you go back
+      to your previous game with the same amount of money you had before.
+      Hint: the url/session/ endpoint can be used to re-fetch the game
+      state from the server, so you only need to store the session.
+      Hint: 
+      https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage
+    * There should be no console warnings or errors.
+8. Bonus point options: choose ONE after requirements 1-7 are met.
+    * You may use JavaScript to inject HTML/CSS into the page to add
+      win/lose/tie/blackjack/bust graphics or animations. Remeber: you can't
+      modify the HTML/CSS directly, you must do it from within your solution.js.
+    * You may use JavaScript to compute a GOOD strategy and suggest to the user
+      a course of action.
+
+EXTRA NOTES:
+  All nontrivial software contains bugs. That means the dealer server contains
+  bugs. If you encounter 500 errors or CORS errors please contact me immediately
+  so that I can fix it. I will show the dealer server source code to those
+  interested (python).
+  
+HINTS:
+  Use the NETWORK PANEL in your dev tools to see your requests, their headers,
+  bodies, responses, response codes, etc.

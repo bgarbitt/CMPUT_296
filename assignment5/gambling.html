@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Brett's First Gambling Thing!</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="296 assignment 5"/>
+    <meta name="author" content="Brett Garbitt"/>
+		
+    <!-- Adding React, React-DOM, and Babel from CDNs -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone/babel.js"></script>
+    
+    <!-- Scripts using ReactDOM.render() -->
+    <script type="text/babel">
+			class Status extends React.Component {
+				constructor (props) {
+					super(props);
+				}
+				render () {
+					return (
+						<fieldset name="status_field">
+							<p name="status"><label>Status: <output name="up">{this.props.status}</output></label></p>
+							<p name="session"><label>Session: <output name="sessionNumber">{this.props.session}</output></label></p>
+						</fieldset>
+					);
+				}
+			}
+			class Betting extends React.Component {
+				constructor(props) {
+					super(props);
+					this.handleChange = this.handleChange.bind(this);
+					this.handleClick = this.handleClick.bind(this);
+				}
+				handleClick (e) {
+					this.props.bet(this.props.betAmount);
+				}
+				handleChange (e) {
+					this.props.onBetChange(e.target.value);
+				}
+				render () {
+					return (
+						<fieldset name="money_field">
+							<p><label>Money Available: <output name="money">{this.props.money}</output></label></p>
+							<p name="bet">
+								<label>
+									<input 
+										name="bet" 
+										type="number" 
+										value={this.props.betAmount} 
+										onChange={this.handleChange}
+										disabled={this.props.betDisable}
+										/>
+								</label>
+								<button 
+									type="button" 
+									name="betButton" 
+									onClick={this.handleClick} 
+									disabled={this.props.betDisable}
+									>
+									Bet this much!
+								</button>
+							</p>
+						</fieldset>
+					);
+				}
+			}
+			class Hand extends React.Component {
+				constructor(props) {
+					super(props);
+                    this.handleArray = this.handleArray.bind(this);
+				}
+                handleArray(array) {
+                  if (!(array.constructor === Array)) {
+                    return array;
+                  }
+                  var prettyArray = [];
+                  for (var i = 0; i < array.length; i++) {
+                    if (array[i] == 11) {
+                      prettyArray.push("J");
+                    } else if (array[i] == 12) {
+                      prettyArray.push("Q");
+                    } else if (array[i] == 13) {
+                      prettyArray.push("K");
+                    } else if (array[i] == 1) {
+                      prettyArray.push("A");
+                    } else {
+                      prettyArray.push(array[i]);
+                    }
+                    prettyArray.push(", ");
+                  }
+                  prettyArray.pop();
+                  return prettyArray;
+                }
+				render() {
+					return (
+						<p>
+							<label>
+								{this.props.name == "dealer" ? "Dealer's hand" : "Your hand"}<br/>
+								<output>{this.props.name == "dealer" ? this.handleArray(this.props.game.dealer_hand) : this.handleArray(this.props.game.player_hand)}</output>
+							</label>
+						</p>
+					);
+				}
+			}
+			class Game extends React.Component {
+				constructor (props) {
+					super(props);
+					this.handleHit = this.handleHit.bind(this);
+					this.handleDoubleDown = this.handleDoubleDown.bind(this);
+					this.handleStand = this.handleStand.bind(this);
+					this.handleSurrender = this.handleSurrender.bind(this);
+				}
+				handleHit (e) {
+					this.props.hit();
+				}
+				handleDoubleDown (e) {
+					this.props.doubleDown();
+				}
+				handleStand (e) {
+					this.props.stand();
+				}
+				handleSurrender (e) {
+					this.props.surrender();
+				}
+				render () {
+					return (
+						<fieldset name="match_field">
+							<Hand {...this.props} name="dealer"/>
+							<Hand {...this.props} name="player"/>
+							<p>
+								<button 
+									type="button" 
+									name="hit" 
+									onClick={this.handleHit} 
+									disabled={this.props.actionDisable}>
+									Hit
+								</button>
+								<button 
+									type="button" 
+									name="double_down" 
+									onClick={this.handleDoubleDown}
+									disabled={this.props.actionDisable}>
+									Double Down
+								</button>
+								<button 
+									type="button" 
+									name="stand" 
+									onClick={this.handleStand}
+									disabled={this.props.actionDisable}>
+									Stand
+								</button>
+								<button 
+									type="button" 
+									name="surrender" 
+									onClick={this.handleSurrender}
+									disabled={this.props.hitted}>
+									Surrender
+								</button>
+							</p>
+							<p>
+								<label>
+                                  Result: 
+                                  <output>
+                                    {typeof this.props.game.result === 'undefined' ? " No results to show" : " " + this.props.game.result}
+                                  </output>
+                                </label><br/>
+								<label>
+                                  You made: 
+                                  <output name="won">
+                                    {typeof this.props.game.won === 'undefined' ? " Haven't won anything yet!" : " " + this.props.game.won}
+                                  </output>
+                                </label><br/>
+							</p>
+						</fieldset>
+					);
+				}
+			}
+			class Gambling extends React.Component {
+				// Ideally want to call Gambler here and store most of the data.
+				constructor (props) {
+					super(props);
+					this.handleBetChange = this.handleBetChange.bind(this);
+					this.bet = this.bet.bind(this);
+					this.hit = this.hit.bind(this);
+					this.stand = this.stand.bind(this);
+					this.doubleDown = this.doubleDown.bind(this);
+					this.surrender = this.surrender.bind(this);
+					this.state = {
+						url: "https://pizza.cs.ualberta.ca/296/", 
+						token: "tpYCGn9+pPJuG4jN4n5VPm4K86THIpS/KzIYpViOfXY=",
+						status: "no status yet",
+						betAmount: 0,
+						session: "Give it a sec!",
+						money: 0,
+						game: {player_hand: "empty right now", dealer_hand: "empty right now"},
+						hitted: false,
+						actionDisable: true,
+						betDisable: false
+					};
+				}
+				componentDidMount() {
+					fetch(this.state.url)
+						.then(function(response) {
+						return response.text();
+					})
+						.then(function(helloMessage) {
+						console.log(helloMessage);
+					});
+					this.getSession(this.state.url+"sit", "token="+encodeURIComponent(this.state.token));
+				}
+				getSession(url, token) {
+					this.postData(url, token)
+						.then(data => {
+						console.log(JSON.stringify(data));
+						this.setState({
+							money: data.money,
+							session: data.session
+						});
+						if (data.game) {
+							this.setState({
+								game: data.game,
+								actionDisable: false,
+							});
+                          console.log(this.state.game.player_hand);
+						}
+						if (data.last_game) {
+							this.setState({
+								hitted: false,
+								game: data.last_game,
+								actionDisable: false,
+								betDisable: false
+							});
+						}
+                        if (!(typeof this.state.game.result === 'undefined')) {
+                          this.setState({
+                            hitted: true,
+                            actionDisable: true,
+                          })
+                        }
+					})
+						.catch(error => console.error(error));
+				}
+				postData(url, token) {
+					return fetch(url, {
+						body: token,
+						cache: 'no-cache',
+						headers: {
+							'content-type': 'application/x-www-form-urlencoded'
+						},
+						method: 'POST'
+					})
+						.then(response => {
+						this.setState({status: response.statusText});
+						return response.json();
+					});
+				}
+				handleBetChange(betAmount) {
+					this.setState({betAmount: betAmount});
+				}
+				bet(betAmount) {
+					this.setState({betDisable: true, hitted: false});
+					var betUrl = this.state.url+this.state.session+"/bet";
+					var betData = "amount="+this.state.betAmount+"&token="+encodeURIComponent(this.state.token);
+					this.getSession(betUrl, betData);
+				}
+				hit() {
+					this.setState({hitted: true, surrenderDisable: true});
+					var actionUrl = this.state.url+this.state.session+"/hit";
+					var actionData = "token="+encodeURIComponent(this.state.token);
+					this.getSession(actionUrl, actionData);
+				}
+				stand() {
+					var actionUrl = this.state.url+this.state.session+"/stand";
+					var actionData = "token="+encodeURIComponent(this.state.token);
+					this.getSession(actionUrl, actionData);
+				}
+				doubleDown() {
+					var actionUrl = this.state.url+this.state.session+"/double_down";
+					var actionData = "token="+encodeURIComponent(this.state.token);
+					this.getSession(actionUrl, actionData);
+				}
+				surrender() {
+					var actionUrl = this.state.url+this.state.session+"/surrender";
+					var actionData = "token="+encodeURIComponent(this.state.token);
+					this.getSession(actionUrl, actionData);
+				}
+				handleSubmit() {
+					return false;
+				}
+				render() {
+					return (
+						<form onSubmit={this.handleSubmit}>
+							<Status 
+								{...this.state}/>
+							<Betting 
+								{...this.state} 
+								onBetChange={this.handleBetChange} 
+								bet={this.bet}/>
+							<Game 
+								{...this.state} 
+								hit={this.hit} 
+								stand={this.stand} 
+								doubleDown={this.doubleDown}
+								surrender={this.surrender}/>
+						</form>
+					);
+				}
+			}
+			ReactDOM.render(
+				<Gambling />,
+				document.getElementById("root")
+			);
+    </script>
+    <style>
+      html {
+        overflow: auto;
+      }
+      body {
+        background-size: cover;
+        background-color: rgb(60, 20, 30);
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        margin: 2px;
+        color: aliceblue;
+      }
+      #title {
+        font-size: 30px;
+        width: 45%;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.2);
+        margin: 0px 30px 0px 10px;
+        font-size: 30px;
+        color: aliceblue;
+        padding-bottom: 10px;
+        text-align: left;
+      }
+      fieldset[name="status_field"] {
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        width: 45%;
+        border: none;
+      }
+      fieldset[name="money_field"] {
+        position: relative;
+        left: 2px;
+        width: 45%;
+        border: none;
+      }
+      fieldset[name="match_field"] {
+        width: 45%;
+        border-radius: 10px;
+        border-color: aliceblue;
+      }
+      p[name="status"], p[name="session"] {
+        margin: 0px 2px 0px 2px;
+      }
+      p[name="bet"] {
+        font-size: 40px;
+        margin: 0;
+      }
+      p.status, p.session {
+        margin: 0px 2px 0px 2px;
+        text-align: left;
+      }
+      .bet {
+        font-size: 40px;
+        margin: 0;
+      }
+      input[name="bet"] {
+        font-size: 30px;
+        width: 130px;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+      button[name="betButton"] {
+        font-size: 30px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      #section_rules {
+        width: 45%;
+        left: 50%;
+        top: 55px;
+        padding-left: 10px;
+        position: absolute;
+        border-style: solid;
+        border-width: 2px;
+        border-color: aliceblue;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title">
+      Welcome to this Gambling Website thing!
+    </h1>
+    <div id="root"></div>
+    <section id="section_rules">
+      <h2>Rules</h2>
+      <p>
+        For full rules:<br/> 
+        <a href="https://en.wikipedia.org/wiki/Blackjack">Wikipedia</a>.<br/>
+        The variant of blackjack used here:
+      </p>
+      <ul>
+        <li>No splitting.</li>
+        <li>The dealer hits on Soft 17.</li>
+        <li>Allows only late surrender.</li>
+      </ul>
+      <p>
+        Rules originally written by Joshua Campbell (professor at University of Alberta) for CMPUT 296.
+      </p>
+    </section>
+    <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </footer>
+  </body>
+</html>

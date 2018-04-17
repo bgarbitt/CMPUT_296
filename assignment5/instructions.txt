@@ -1,0 +1,137 @@
+The goal of this assignment is to build a working React app (gambling.html)
+that works with an existing HTTP server.
+
+The use of JavaScript libraries other than
+    React
+    React-DOM
+    Babel
+for this assignment is BANNED. Yes, that includes jQuery and Lodash, etc.
+
+You should submit a single .html file named "gambling.html".
+
+YOU MAY NOT USE THE PREVIOUS ASSIGNMENT'S gambling.html! MAKE YOUR OWN NEW ONE!
+
+YOU MAY USE YOUR JavaScript CODE FROM ASSIGNMENT 4.
+
+Marks:
+1. 1 point: 
+    Your gambling.html *doesn't* copy the one provided on assignment 4 and
+    provides a working gambling interface, rules, and a license.
+    Your gambling.html loads React, React-DOM, and Babel from CDNs.
+    Example:
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone/babel.js"></script>
+    Your HTML includes CSS to make the page look nice.
+    It should look much nicer than the page used on Assignment 4.
+    You *may* use bootstrap or another CSS library but you must load it via CDN.
+    
+    Make a professional and attractive looking gambling page!
+
+2. 1 point:
+    Your gambling.html uses React to render some part of the page.
+        Example: ReactDOM.render() is called.
+    Your gambling.html DOES NOT USE React to render static parts of the page,
+    that means parts that never change such as the rules and copyright notice.
+    Your gambling.html DOES use React to render dynamic parts of the page
+    (all the stuff that changes depending on the state of the game).
+        Hint: use the idiomatic <div id="root"></div> to place your React
+        content. Leave the static content outside.
+
+3. 1 point:
+    Your gambling.html uses multiple separate React components. There should be
+    a parent or root component, which uses more React components inside.
+    1 parent or root component which contains the entire gambling area.
+        1 component which contains the status and session display.
+        1 component which contains the money display and betting amount and the
+            bet button.
+        1 component which contains the game display (dealer's hand, your hand,
+            stand, hit, double down, surrender, result, how much had been bet,
+            and how much was won).
+    Example set of React components. 
+        Gambling <- root component
+            Status <- used by the Gambling component
+            Betting
+            Game
+                Hand <- used twice to handle displaying both hands
+                Hand
+    
+    HINT: https://reactjs.org/docs/thinking-in-react.html
+
+4. 1 point:
+    No console warnings or errors other than 
+        - "You're using the in-browser Babel..."
+        - "unreachable code after return statement"
+
+5. 1 point: 
+    Your React components contain all functionality.
+    There are no global variables.
+    There are no global functions (functions defined at the top level).
+    The ONLY classes are React components.
+    You only use JS to find an element ONCE, 
+        example: ReactDOM.render(stuff, document.getElementById('root'))
+        No other uses of getElementBy__ or querySelector or related functions.
+    You use attr={} JSX syntax to set attributes, you never use DOM objects.
+        example: <input disabled={this.shouldIBeDisabled()}
+
+6. 1 point:
+    You are passing state information to child components via props.
+        Example: <ChildComponent power={this.state.power}
+    You are passing any needed functions to child components via props.
+        Example: <ChildComponent blingFunction={this.bling}
+            In the child: this.props.blingFunction()
+    There exists a single post() function in only one of your components.
+        This is the only one place in your code where XmlHttpRequest or fetch is
+        called AND it should only be called once inside post().
+        Example: post(what) {...
+            Later: this.post("sit")
+    Your post() function only modifies the state of the component it is defined
+        in.
+        Example, somewhere in post: this.setState(
+    There exists bet(), stand(), double_down(), surrender(), hit()
+        functions for the buttons which are defined in their component.
+        example: onClick={this.bet}
+    All display is done by reading from props, state, or component functions
+        of the component the display is in.
+        example: value={this.state.value}
+    HINT: https://reactjs.org/docs/thinking-in-react.html STEP 4
+        you should not need STEP 5
+    
+7. 1 point: 
+    Your code contains no excess "clones" (chunks of copy-pasted code).
+    You have a single React component for displaying hands that is reused
+        for the dealer's hand and the player's hand.
+
+EXTRA NOTES:
+  All nontrivial software contains bugs. That means the dealer server contains
+  bugs. If you encounter 500 errors or CORS errors please contact me immediately
+  so that I can fix it. I will show the dealer server source code to those
+  interested (python).
+  
+HINTS:
+  Use the NETWORK PANEL in your dev tools to see your requests, their headers,
+  bodies, responses, response codes, etc.
+  If you are using the CDN to load Babel while you're working on it the LINE
+    NUMBERS in the console errors will be WRONG. There is NO WAY to fix this
+    without using the complicated package management and build workflow. Details
+    can be found on how to do this on React's website, but it is out of scope
+    for this class.
+  You cannot use setState() inside the constructor.
+  You have to use className instead of class in JSX when defining an element.
+  You have to bind all your functions if using ES6 class syntax.
+    Example in constructor: this.bet = this.bet.bind(this);
+  You might want to use the "controlled input" method for reading the bet amount.
+    https://reactjs.org/docs/forms.html
+  You might want to call your method that reads from localStorage in
+    componentDidMount, not the constructor.
+  Remember to call super(props); in every constructor.
+  Your JSX script must go after the div id="root" and should have type="text/babel".
+  If you choose to use forms, make sure that it cannot be submitted.
+
+  https://reactjs.org/docs/forms.html
+  https://reactjs.org/docs/components-and-props.html
+  https://reactjs.org/docs/state-and-lifecycle.html
+  https://reactjs.org/docs/react-component.html
+  https://reactjs.org/docs/handling-events.html
+  https://reactjs.org/docs/conditional-rendering.html
+  https://reactjs.org/docs/lifting-state-up.html

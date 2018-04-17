@@ -1,0 +1,138 @@
+* Explore HTML and CSS
+** Description
+
+   You will make a personal profile using HTML.
+
+** Collaboration
+   - You may consult with others but the submission should be your
+     own source code.
+   - You may work (pair program) with 1 other person, but both of you
+     need to submit your work separately.
+   - Collaboration MUST be documented using HTML comments.
+   - Any external source code must be referenced and documented using
+     HTML or CSS comments.
+
+** Goals
+
+   You're going to make your own HTML page and you're going to make 2
+   CSS themes for it.
+
+   You may take this comic as inspiration but you do not have to copy it (though you may if you like):
+   http://theoatmeal.com/comics/design_hell
+
+   But instead make a 1 webpage about each assignment partner (1 page
+   if you are doing this solo and 2 webpages if you are working with someone
+   else!) that advertises you to employers.
+
+   Make 1 ugly CSS and 1 good CSS just like the design_hell comic.
+
+   You should make a page good enough you'd actually use it as your homepage.
+   
+** Requirements:
+
+    - [ ] A section about who you are + photo
+        - [ ] Multiple paragraphs
+    - [ ] A section about your professional history
+        - [ ] Multiple paragraphs or lists
+    - [ ] A section about what you can do for a potential employer/what you have to offer
+        - [ ] Multiple paragraphs
+    - [ ] A sidebar of important points they should know about you.
+        - [ ] Single list
+    - [ ] A menu that uses #fragments and IDs to jump between sections.
+    - [ ] A fancy title
+    - [ ] A link to contact you using a mailto: URI
+    - [ ] A link to an external resource 
+    - [ ] 1 UGLY CSS theme - this should be a hilarious awful look
+    - [ ] 1 good CSS theme - this should be a clean modern look
+    - [ ] Ugly theme has to be noticeably completely different.
+    - [ ] 2 HTML files, each with the *same* HTML but *different* CSS
+    - [ ] Your photo (try to keep it professional)
+    - [ ] Ensure that files are appropriately named
+    - [ ] good.html should be your good page
+        - [ ] titles
+        - [ ] headings
+        - [ ] sections
+        - [ ] menus
+        - [ ] backgrounds
+        - [ ] fonts
+        - [ ] borders or rules (to separate sections, and to separate sections from menu, from the title, etc.)
+        - [ ] colours
+        - [ ] Every element is custom styled
+        - [ ] Your HTML and CSS must pass W3C validation:
+            https://validator.w3.org/
+            https://jigsaw.w3.org/css-validator/
+            - [ ] HTML passes validation
+            - [ ] CSS passes validation
+    - [ ] ugly.html should be your ugly page
+        - [ ] titles
+        - [ ] headings
+        - [ ] sections
+        - [ ] menus
+        - [ ] backgrounds
+        - [ ] fonts
+        - [ ] borders or rules (to separate sections, and to separate sections from menu, from the title, etc.)
+        - [ ] colours
+        - [ ] Every element is custom styled
+        - [ ] Your HTML and CSS must pass W3C validation:
+            https://validator.w3.org/
+            https://jigsaw.w3.org/css-validator/
+            - [ ] HTML passes validation
+            - [ ] CSS passes validation
+    - [ ] Follow the principles of semantic markup! Look at the list
+        of available HTML 5 tags to help you with this. For example, there's
+        a tag meant just for sections, one meant for navigation menus,
+        one meant for titles.
+        - [ ] No div or span tags.
+        - [ ] Uses appropriate title tag
+        - [ ] Uses an appropriate heading tags
+        - [ ] Uses appropriate section tags
+        - [ ] Uses appropriate navigation menu tags
+        - [ ] Uses appropriate link tags
+        - [ ] Uses appropriate photo tags
+        - [ ] Uses appropriate sidebar tags
+        - [ ] Uses appropriate list tags
+        - [ ] Uses appropriate paragraph tags
+        - [ ] All other tags appropriate
+        - [ ] W3C validator has no suggestions
+   - [ ] Your HTML and CSS must work in both Firefox and Chrome
+        - [ ] Firefox
+        - [ ] Chrome
+   - [ ] Your page should be readable *WITHOUT* CSS styling: use Firefox
+    or Chrome and turn off the styling to check!
+
+** Restrictions
+    - [ ] License your content properly (use a Creative Commons License
+        like CC-BY-ND or CC-BY-SA)
+        - Put your name on it!
+    - [ ] If you borrow CSS, always cite the author and the source
+    - [ ] If you borrow HTML, always cite the author and the source
+    - [ ] If you borrow images, make sure you have the legal right to do so,
+        and cite the author and the source.
+    - [ ] You may NOT use a CSS library like Bootstrap.
+    - [ ] Upload a .zip file with both HTML files any other files required
+        to view your page. MAKE SURE IT WORKS in your browser AFTER unzipping
+        it on a DIFFERENT COMPUTER (e.g., computers in CSC 2-19) ! Be sure to not use any ABSOLUTE PATHS,
+        you should only use RELATIVE paths! Do not "hot link" images,
+        this generally means do not use a full URL for images.
+        For example: use <img src="blah.jpg"> and put blah.jpg in the .zip 
+        file.
+
+** Recommendations
+
+   - Go look at CSS on the internet. Check the licenses.
+
+   - Look how things are achieved.
+
+** Marking
+    - You will receive a ZERO mark if you do not cite images, code, or CSS,
+      obtained from external sources,
+        along with a potential referral to the dean's office for violating
+        UofA's academic code.
+    - You will receive a ZERO mark if you use a CSS library (e.g., Bootstrap, Foundation, etc.) instead of
+        hand-written CSS you made yourself, or if you fail to license your
+        content properly.
+    - Violating any of the RESTRICTIONS will earn you a ZERO mark.
+    - Marked by the fraction of the requirements tick boxes met.
+        A requirement with sub-requirements only counts if all of its
+        sub-requirements are ticked. E.g. if your pages work in Firefox and
+        Chrome then you get 3 requirements. 
